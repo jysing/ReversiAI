@@ -5,6 +5,7 @@ public class Minimax {
 	private double timeLimit;
 	private int player;
 	private boolean timedOut = false;
+	public boolean fullTree = true;
 
 	public Minimax(double timeLimit) {
 		this.timeLimit = timeLimit;
@@ -62,12 +63,10 @@ public class Minimax {
 	}
 
 	private boolean terminalTest(Node node, int depth) {
-		if (node.getChildren().length == 0) {
-			node.findChildren();
-		}
-
+		if (node.getChildren().length == 0) node.findChildren();
 		if (depth == 0 || node.getChildren().length == 0) {
 			node.calculateValue();
+			if (node.getChildren().length != 0) fullTree = false;
 			return true;
 		}
 		return false;

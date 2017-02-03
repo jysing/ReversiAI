@@ -56,8 +56,9 @@ public class Player {
 			int[] opt = alg.findOpt(board, depth);
 			if (alg.finished()) {
 				oldOpt = opt;
-				depth++;
 			}
+			if (alg.fullTree) break;
+			depth++;
 		}
 		board.move(oldOpt[0], oldOpt[1]);
 		System.out.println("Final depth = " + depth);
