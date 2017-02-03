@@ -6,6 +6,7 @@ public class Player {
 	private Board board;
 	private Minimax alg;
 	private double timeLimit;
+	private final int sizeX = 8, sizeY = 8;
 
 	public Player(String type, Board board, double timeLimit) {
 		scn = new Scanner(System.in);
@@ -22,7 +23,20 @@ public class Player {
 	}
 
 	private void Hturn() {
-		System.out.println("Player " + board.getCurrPlayer() + " turn. Enter position.");
+		String validMove = "No valid move avaible";
+		int[][] grid = board.getBoard();
+		foundValidMove:
+		for (int i = 0; i < sizeX; i++) {
+			for (int j = 0; j < sizeY; j++) {
+				if (grid[i][j] == 0) {
+					validMove = intToString(i) + (j+1);
+					break foundValidMove; 
+				}
+			}
+		}
+		char type = 'x';
+		if (board.getCurrPlayer() == 2) type = 'o'; 
+		System.out.println("Player " + board.getCurrPlayer() + " (" + type + ") turn. Enter position (ex: " + validMove + ").");
 		String str = scn.nextLine();
 		if (str.length() != 2) System.out.println("Invalid input.");
 		else {
@@ -70,6 +84,20 @@ public class Player {
 			case 'g':	return 6;
 			case 'h':	return 7;
 			default:	return -1;
+		}
+	}
+
+	private String intToString(int nbr) {
+		switch (nbr) {
+			case 0:	return "a";
+			case 1:	return "b";
+			case 2:	return "c";
+			case 3:	return "d";
+			case 4:	return "e";
+			case 5:	return "f";
+			case 6:	return "g";
+			case 7:	return "h";
+			default:	return null;
 		}
 	}
 
